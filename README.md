@@ -4,54 +4,53 @@ Program tcprelay relays TCP traffic between clients and servers.
 
 # Example
 
-Make sure your _$GOPATH/bin folder_ is in your _$PATH_, then:
+Here is a sample session using the golang docker container:
 
-    $ go get -u github.com/icub3d/tcprelay
-    $ go get -u github.com/icub3d/tcprelay/echoserver
-    $ go get -u github.com/icub3d/tcprelay/httpserver
-    $ tcprelay
-    2015/07/24 15:08:01 addr: :8000, port range: :8001-9000
-
-    # In another terminal or if you backgrounded the previous:
-    $ echoserver
-    2015/07/24 15:08:11 client connection: :8001
-
-    # In another terminal or if you backgrounded all the previous:
-    $ echoserver -reverse
-    2015/07/24 15:08:12 client connection: :8002
-
-    # In another terminal or if you backgrounded all the previous:
-    $ httpserver -dir=/path/to/some/static/html
-    2015/07/24 15:08:13 client connection: :8003
-
-    # In another terminal or if your backgrounded all the previous:
-    $ telnet localhost 8001
+    sudo docker run -it --rm golang
+    root@adb076a42801:/go# apt-get update
+    root@adb076a42801:/go# apt-get install telnet
+    root@adb076a42801:/go# go get -u github.com/icub3d/tcprelay
+    root@adb076a42801:/go# go get -u github.com/icub3d/tcprelay/echoserver
+    root@adb076a42801:/go# go get -u github.com/icub3d/tcprelay/httpserver
+    root@adb076a42801:/go# tcprelay&
+    2015/07/24 21:30:44 addr: :8000, port range: :8001-9000
+    [1] 121
+    root@adb076a42801:/go# echoserver&
+    2015/07/24 21:30:52 client connection: :8001
+    [2] 124
+    root@adb076a42801:/go# echoserver -reverse &
+    2015/07/24 21:30:58 client connection: :8002
+    [3] 127
+    root@adb076a42801:/go# httpserver &
+    2015/07/24 21:31:06 client connection: :8003
+    [4] 130
+    root@adb076a42801:/go# telnet
+    telnet> open localhost 8001
     Trying ::1...
     Connected to localhost.
     Escape character is '^]'.
     hello, world!
     hello, world!
     ^]
-
-    telnet> quit
+    telnet> close
     Connection closed.
-    $ telnet localhost 8002
+    telnet> open localhost 8002
     Trying ::1...
     Connected to localhost.
     Escape character is '^]'.
     hello, world!
 
-    !dlrow ,olleh^]
-
+    !dlrow ,olleh^]
     telnet> quit
-    Connection closed.
-    $ curl localhost:8003
-    # you should see your index.html. You can also try it in the broswer!
+    root@adb076a42801:/go# curl localhost:8003
+    <b>hello, world wide web</b>
 
-# Using
+If you link the open port (in the above case 8003) to an external port, you can test the httpserver in your browser!
+
+# Developing
 
 You can look at the echoserver and httpserver for examples of how to use the
-relay server. They both make use of the
+relay server for your own servers. They both make use of the
 [github.com/icub3d/tcprelay/relay](https://godoc.org/github.com/icub3d/tcprelay/relay)
 package. At a high level,
 
