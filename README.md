@@ -58,3 +58,8 @@ package. At a high level,
 * Get the client address that clients can use to connect.
 * Start reading messages from the relay server and handle them.
 * Send messages to the relay server to tell it what to do or what to send to clients.
+
+Non-Go servers can still make use of the relay server. Those servers just need
+to be able to consume and create JSON messages for and from the relay. The
+messages should be patterned after the relay.Message structure in the
+documentation linked above.
