@@ -23,10 +23,10 @@ type Conn struct {
 	raddr  *net.TCPAddr
 }
 
-// NewConn creates a new connection based on the given local and remote
+// NewClient creates a new connection based on the given local and remote
 // addresses. And data that should be sent to the relay will be sent via the
 // given channel.
-func NewConn(localAddr string, remoteAddr string, msgs chan *Message) (*Conn, error) {
+func NewClient(localAddr string, remoteAddr string, msgs chan *Message) (*Conn, error) {
 	c := &Conn{
 		cond: sync.NewCond(&sync.Mutex{}),
 		msgs: msgs,

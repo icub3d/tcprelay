@@ -51,7 +51,9 @@ func main() {
 			log.Fatalln("getting message:", err)
 		}
 		if msg.Type != relay.MessageTypeData {
-			// Ignore everything else.
+			// Ignore everything else. If we were interested in maintaining state, we'd
+			// want to use a map of some sort to track new connections and close open
+			// ones.
 			continue
 		}
 		if reverse {

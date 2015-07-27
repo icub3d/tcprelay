@@ -45,7 +45,8 @@ Here is a sample session using the golang docker container:
     root@adb076a42801:/go# curl localhost:8003
     <b>hello, world wide web</b>
 
-If you link the open port (in the above case 8003) to an external port, you can test the httpserver in your browser!
+If you link the open port (in the above case 8003) to an external port, you can
+test the httpserver in your browser!
 
 # Developing
 
@@ -59,7 +60,15 @@ package. At a high level,
 * Start reading messages from the relay server and handle them.
 * Send messages to the relay server to tell it what to do or what to send to clients.
 
+If you are using Go, you can handle the messages yourself but you might find it
+easier to use  the net.Conn and net.Listener interfaces that the relay package
+provides. The httpserver example does this and makes integration with existing
+services extremely simple.
+
 Non-Go servers can still make use of the relay server. Those servers just need
 to be able to consume and create JSON messages for and from the relay. The
 messages should be patterned after the relay.Message structure in the
-documentation linked above.
+documentation linked above. The documentation on for each type describes in
+detail what the message is for and how it should be used. You can also review
+the source code for the relay.Listener functions to see how messages can be
+handled.
