@@ -37,7 +37,7 @@ const (
 	MessageTypeStop
 
 	// MessageTypeConnect is a signal from the relay to the server that a new
-	// conection is being made. The RemoteAddr and LocalAddr will contain the
+	// connection is being made. The RemoteAddr and LocalAddr will contain the
 	// client information and should be used for future communication to the
 	// client.
 	MessageTypeConnect
